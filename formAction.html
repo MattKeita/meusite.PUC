@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Meu Site - Dados Recebidos</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/main.js"></script>
+  <script defer>
+    // Recupera parâmetros da query string e mostra na página
+    document.addEventListener('DOMContentLoaded', function () {
+      const params = new URLSearchParams(window.location.search);
+      const output = document.getElementById('output');
+      if (!params.toString()) {
+        output.innerHTML = '<p>Nenhum dado recebido. Envie o formulário primeiro.</p>';
+        return;
+      }
+      const entries = Array.from(params.entries());
+      const dl = document.createElement('dl');
+      entries.forEach(([k,v]) => {
+        const dt = document.createElement('dt');
+        dt.textContent = k;
+        const dd = document.createElement('dd');
+        dd.textContent = v;
+        dl.appendChild(dt);
+        dl.appendChild(dd);
+      });
+      output.appendChild(dl);
+
+      // Exemplo simples de sanitização antes de inserir no DOM (já usado via textContent)
+      // Demonstra como tratar os dados no código
+    });
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <img src="images/logo.svg" alt="Logo" class="logo"/>
+      <h1>Meu Site</h1>
+    </div>
+    <nav class="main-nav" id="mainNav">
+      <button class="nav-toggle" id="navToggle" aria-expanded="false">☰</button>
+      <ul class="nav-list">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="form.html">Formulário</a></li>
+        <li><a href="formAction.html" class="active">Receber Dados</a></li>
+        <li><a href="about.html">Sobre</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>Dados Recebidos (método GET)</h2>
+    <div id="output" class="card"></div>
+    <p class="note">Os dados foram recuperados da query string com <code>URLSearchParams</code>.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>Autor: Seu Nome • Trabalho de defesa</p>
+  </footer>
+</body>
+</html>
